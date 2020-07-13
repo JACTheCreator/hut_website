@@ -1,0 +1,6 @@
+
+CREATE PROCEDURE Products_List 
+AS
+BEGIN
+	SELECT * FROM Products;
+END;

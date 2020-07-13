@@ -1,0 +1,6 @@
+
+CREATE PROCEDURE Users_List 
+AS
+BEGIN
+	SELECT * FROM Users;
+END;

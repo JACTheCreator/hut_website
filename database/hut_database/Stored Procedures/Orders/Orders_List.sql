@@ -1,0 +1,6 @@
+
+CREATE PROCEDURE Orders_List 
+AS
+BEGIN
+	SELECT * FROM Orders;
+END;

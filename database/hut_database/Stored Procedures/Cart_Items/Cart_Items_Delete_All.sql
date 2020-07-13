@@ -1,0 +1,5 @@
+CREATE PROCEDURE Cart_Items_Delete_All
+AS
+BEGIN
+	DELETE FROM Cart_Items;
+END;
