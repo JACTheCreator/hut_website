@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2015
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hut_website", "hut_website\hut_website.csproj", "{69D65F12-9D9B-42DA-A142-E55539F258E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hut_website.Tests", "hut_website.Tests\hut_website.Tests.csproj", "{78775497-C165-4F09-85BF-AA0BBE7BFFBD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{69D65F12-9D9B-42DA-A142-E55539F258E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69D65F12-9D9B-42DA-A142-E55539F258E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69D65F12-9D9B-42DA-A142-E55539F258E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69D65F12-9D9B-42DA-A142-E55539F258E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78775497-C165-4F09-85BF-AA0BBE7BFFBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78775497-C165-4F09-85BF-AA0BBE7BFFBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78775497-C165-4F09-85BF-AA0BBE7BFFBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78775497-C165-4F09-85BF-AA0BBE7BFFBD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {40F94DCC-C523-40E1-96B1-8F9486F40E1E}
+	EndGlobalSection
+EndGlobal
