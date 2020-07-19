@@ -1,31 +1,147 @@
-﻿/* Move down content because we have a fixed navbar that is 50px tall */
-body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿html, body {
+    height: 100%;
 }
 
-/* Wrapping element */
-/* Set some basic padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
-/* Set widths on the form inputs since otherwise they're 100% wide */
 input,
 select,
 textarea {
     max-width: 280px;
 }
 
+.row {
+    margin-right: 0;
+    margin-left: 0;
+}
 
-/* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
-    .jumbotron {
-        margin-top: 20px;
+.horizontal-center {
+    /*margin-left: auto;
+    margin-right: auto;*/
+    text-align: center;
+    margin: 0 auto;
+    display: block;
+}
+
+.center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+h1, h2, h3, h4, h5 {
+    color: #427597;
+}
+
+.md-input {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+    .md-input .md-form-control {
+        font-size: 16px;
+        padding: 3px 3px 3px 0;
+        display: block;
+        border: none;
+        border-bottom: 2px solid #427597;
+        box-shadow: none;
+        width: 100%;
+        outline: none;
     }
 
-    .body-content {
-        padding: 0;
+    .md-input label {
+        color: #427597;
+        font-size: 16px;
+        font-weight: 500;
+        position: absolute;
+        pointer-events: none;
+        left: 0;
+        top: 5px;
+        -moz-transition: 0.2s ease all;
+        -webkit-transition: 0.2s ease all;
+        -o-transition: 0.2s ease all;
+        transition: 0.2s ease all;
     }
+
+    .md-input .bar:before {
+        left: 50%;
+    }
+
+    .md-input .bar:after {
+        right: 50%;
+    }
+
+    .md-input .highlight {
+        position: absolute;
+        height: 60%;
+        width: 100px;
+        top: 25%;
+        left: 0;
+        pointer-events: none;
+        opacity: 0.5;
+    }
+
+    .md-input .md-form-control:focus ~ label, .md-input .md-form-control:valid ~ label {
+        top: -15px;
+        font-size: 14px;
+        color: #427597;
+        font-weight: 700;
+    }
+
+    .md-input .bar:before, .md-input .bar:after {
+        content: '';
+        height: 2px;
+        width: 0;
+        bottom: 0;
+        position: absolute;
+        background: #427597;
+        transition: 0.2s ease all;
+        -moz-transition: 0.2s ease all;
+        -o-transition: 0.2s ease all;
+        -webkit-transition: 0.2s ease all;
+    }
+
+.btn-primary {
+    background-color: #427597;
+    border-color: #427597;
+    font-size: 18px
+}
+
+    .btn-primary:hover {
+        background-color: #427597;
+        border-color: #427597;
+    }
+
+.btn {
+    border-radius: 0;
+    width: 280px;
+    height: 40px;
+}
+
+.a-primary {
+    color: #427597;
+    text-decoration: underline;
+    font-weight: 700;
+}
+
+a.a-white {
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+    a.a-white:hover {
+        color: #a8d1dc;
+    }
+
+.navbar-collapse {
+    padding: 0;
+}
+
+.navbar {
+    background-color: #427597;
 }
