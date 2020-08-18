@@ -25,6 +25,7 @@ namespace hut_website
                     Response.Redirect("~/Products.aspx");
                 }
             }
+
             RequiredFieldValidator4.Visible = true;
             RegularExpressionValidator1.Visible = true;
 
@@ -66,6 +67,7 @@ namespace hut_website
                     {
                         try
                         {
+                            new User(txtEmail.Text, txtFirstName.Text, txtLastName.Text, txtPNum.Text, DateTime.Parse(txtDOB.Text), "Customer").Add();
                             var userIdentity = manager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
                             // transaction.Commit();
                             Response.Redirect("~/Login.aspx");
