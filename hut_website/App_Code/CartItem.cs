@@ -85,7 +85,7 @@ namespace hut_website
                             ProductId = int.Parse(dataRow["product_id"].ToString()),
                             Quantity = int.Parse(dataRow["quantity"].ToString()),
                             TotalCost = float.Parse(dataRow["total_cost"].ToString()),
-                        };
+                    };
                         products.Add(cartItem);
                     }
 
@@ -131,7 +131,6 @@ namespace hut_website
             }
         }
 
-
         public void DeleteAll(String email)
         {
             using (SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HutConnection"].ToString()))
@@ -146,6 +145,89 @@ namespace hut_website
 
                     // Add your parameters
                     sqlCommand.Parameters.AddWithValue("@email", email);
+
+                    //Just execute the Query directly
+                    sqlCommand.ExecuteNonQuery();
+                }
+                catch (Exception exception)
+                {
+                    throw new Exception(exception.ToString());
+                }
+                finally
+                {
+                    sqlConnection.Close();
+                }
+            }
+        }
+
+        public CartItem Find(int product_id)
+        {
+            using (SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HutConnection"].ToString()))
+            {
+                try
+                {
+                    sqlConnection.Open();
+                    SqlCommand sqlCommand = new SqlCommand("Cart_Items_Find", sqlConnection)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    };
+
+                    //Add your parameters
+                    sqlCommand.Parameters.AddWithValue("@product_id", product_id);
+
+                    //Just execute the Query directly
+                    sqlCommand.ExecuteNonQuery();
+
+                    DataTable dataTable = new DataTable();
+                    SqlDataAdapter dataAdapter = new SqlDataAdapter(sqlCommand);
+                    dataAdapter.Fill(dataTable);
+
+                    List<CartItem> cartItems = new List<CartItem>();
+                    foreach (DataRow dataRow in dataTable.Rows)
+                    {
+                        CartItem cartItem = new CartItem()
+                        {
+                            Id = int.Parse(dataRow["id"].ToString()),
+                            ProductId = int.Parse(dataRow["product_id"].ToString()),
+                            Quantity = int.Parse(dataRow["quantity"].ToString()),
+                            TotalCost = float.Parse(dataRow["total_cost"].ToString()),
+                        };
+                        cartItems.Add(cartItem);
+                    }
+
+                    if (cartItems.Count >= 1)
+                    {
+                        return cartItems[0];
+                    }
+                    return null;
+                }
+                catch (Exception exception)
+                {
+                    throw new Exception(exception.ToString());
+                }
+                finally
+                {
+                    sqlConnection.Close();
+                }
+            }
+        }
+
+        public void Update()
+        {
+            using (SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HutConnection"].ToString()))
+            {
+                try
+                {
+                    sqlConnection.Open();
+                    SqlCommand sqlCommand = new SqlCommand("Cart_Items_Update", sqlConnection)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    };
+
+                    //Add your parameters
+                    sqlCommand.Parameters.AddWithValue("@id", Id);
+                    sqlCommand.Parameters.AddWithValue("@quantity", Quantity);
+                    sqlCommand.Parameters.AddWithValue("@total_cost", TotalCost);
 
                     //Just execute the Query directly
                     sqlCommand.ExecuteNonQuery();
