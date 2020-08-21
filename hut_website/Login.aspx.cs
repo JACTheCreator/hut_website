@@ -4,6 +4,7 @@ using Microsoft.Owin.Security;
 using System;
 using System.Web;
 using System.Web.UI.WebControls;
+using System.Collections.Generic;
 
 namespace hut_website
 {
@@ -34,6 +35,22 @@ namespace hut_website
                     var userIdentity = userManager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
 
                     authenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = false }, userIdentity);
+                    if (Session["cart_items"] != null)
+                    {
+                        List<CartItem> cartItems = (List<CartItem>)Session["cart_items"];
+                        foreach (CartItem cartItem in cartItems)
+                        {
+                            new CartItem()
+                            {
+                                Email = User.Identity.Name,
+                                ProductId = cartItem.ProductId,
+                                Quantity = cartItem.Quantity,
+                                TotalCost = cartItem.TotalCost
+                            }.Add();
+                        }
+
+                        Session["cart_items"] = null;
+                    }
                     Response.Redirect("~/Login.aspx");
                     lblInvalidCredentials.Text = "Success";
                 }

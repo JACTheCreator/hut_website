@@ -13,22 +13,61 @@ namespace hut_website
         {
             if (!IsPostBack)
             {
+
                 User user = new User().Get(User.Identity.Name);
-                
                 lblUserEmail.Text = User.Identity.Name;
+
+                if (user != null)
+                {
+                    if (user.Role == "Admin")
+                    {
+                        btnAdd.Visible = true;
+                        btnEdit.Visible = true;
+                        ShowDeleteButton = true;
+                    }
+                    else
+                    {
+                        btnAdd.Visible = false;
+                        btnEdit.Visible = false;
+                        ShowDeleteButton = false;
+                    }
+
+                }
+                else
+                {
+                    btnAdd.Visible = false;
+                    btnEdit.Visible = false;
+                    ShowDeleteButton = false;
+                }
+
                 if (User.Identity.IsAuthenticated)
                 {
                     linkSignInUp.Visible = false;
                     linkUserInfo.Visible = true;
+                    List<CartItem> cartItems = new CartItem().List(user.Email);
+                    txtCartSize.Text = cartItems.Sum(x => x.Quantity).ToString();
                 }
                 else
                 {
                     linkSignInUp.Visible = true;
                     linkUserInfo.Visible = false;
+                    if (Session["cart_items"] != null)
+                    {
+                        List<CartItem> cartItems = (List<CartItem>)Session["cart_items"];
+                        txtCartSize.Text = cartItems.Sum(x => x.Quantity).ToString();
+                    }
+                    else
+                    {
+                        List<CartItem> cartItems = new List<CartItem>();
+                        Session["cart_items"] = cartItems;
+                        txtCartSize.Text = "0";
+                    }
                 }
                 PopulateProducts();
             }
         }
+
+        public bool ShowDeleteButton { set; get; }
 
         protected void PopulateProducts()
         {
@@ -55,7 +94,7 @@ namespace hut_website
 
         protected void EditProduct(object sender, EventArgs e)
         {
-            int id = 1;
+            int id = int.Parse(txtUpdateId.Text);
             Product product = new Product().Get(id);
             txtId.Text = id.ToString();
             txtUpdateName.Text = product.Name;
@@ -93,7 +132,60 @@ namespace hut_website
 
         protected void AddToCart(object sender, CommandEventArgs e)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                int id = int.Parse(e.CommandName);
+                CartItem cartItem = new CartItem().Find(id);
+                Product product = new Product().Get(id);
 
+                if (cartItem == null)
+                {
+                    int quantity = 1;
+                    new CartItem()
+                    {
+                        Email = User.Identity.Name,
+                        ProductId = product.Id,
+                        Quantity = quantity,
+                        TotalCost = (quantity * product.Price)
+                    }.Add();
+                }
+                else
+                {
+                    cartItem.Quantity = cartItem.Quantity + 1;
+                    cartItem.TotalCost = (cartItem.Quantity * product.Price);
+                    cartItem.Update();
+                }
+            }
+            else
+            {
+                if (Session["cart_items"] != null)
+                {
+                    int quantity = 1;
+                    List<CartItem> cartItems = (List<CartItem>)Session["cart_items"];
+                    int id = int.Parse(e.CommandName);
+                    Product product = new Product().Get(id);
+
+                    if (cartItems.Exists(x => x.ProductId == id))
+                    {
+                        int index = cartItems.FindIndex(x => x.ProductId == id);
+                        cartItems[index].Quantity = cartItems[index].Quantity + 1;
+                        cartItems[index].TotalCost = cartItems[index].Quantity * product.Price;
+                    }
+                    else
+                    {
+                        cartItems.Add(new CartItem()
+                        {
+                            Email = User.Identity.Name,
+                            ProductId = product.Id,
+                            Quantity = quantity,
+                            TotalCost = (quantity * product.Price)
+                        });
+                    }
+                    Session["cart_items"] = cartItems;
+                }
+            }
+
+            Response.Redirect("~/Products.aspx");
         }
 
         protected void SignOut(object sender, EventArgs e)

@@ -2,7 +2,7 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <div class="row" style="height: 100%">
-        <div class="col-md-1" style="height: 100%; background-color: #427597; padding: 25px">
+        <div class="col-md-1" style="background-color: #427597; padding: 25px">
             <img class="horizontal-center" src="images/logo.svg" width="60">
         </div>
 
@@ -90,6 +90,7 @@
 
         <div class="col-md-7" style="height: 100%; background-color: #427597">
             <nav class="navbar navbar-expand-lg">
+                <button class="navbar-toggler" style="float: right; color: #427597; border-color: #427597; border-style: solid" type="button" data-toggle="collapse" data-target="#navbarText">Menu</button>                
                 <div class="collapse navbar-collapse" id="navbarText">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
